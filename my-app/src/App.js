@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Form from './components/Form';
-import Alert from './components/aaa';
-
-import BBB from './components/bbb';
 import { v4 as uuidv4 } from 'uuid';
+
+import ContactForm from './components/ContactForm';
+import Filter from './components/Filter';
+import ContactList from './components/ContactList';
+
 class App extends Component {
   state = {
     contacts: [
@@ -14,41 +15,35 @@ class App extends Component {
     ],
     filter: '',
   };
-  fff = (name, number) => {
-    // console.log(name);
-    // console.log(number);
-    const ggg = {
+  makeCard = (name, number) => {
+    const newCard = {
       text: name,
       id: uuidv4(),
       number,
     };
-    const ddd = this.state.contacts.find(ggg => name === ggg.text);
+    const oldCard = this.state.contacts.find(newCard => name === newCard.text);
 
-    // console.log(ddd);
-    // console.log(ggg.text);
-    // console.log(this.state.contacts);
-
-    if (ddd) {
-      alert(`${ddd.text}  is already in contacts`);
+    if (oldCard) {
+      alert(`${oldCard.text}  is already in contacts`);
       return;
     } else {
       this.setState(({ contacts }) => ({
-        contacts: [ggg, ...contacts],
+        contacts: [newCard, ...contacts],
       }));
     }
   };
-  deleteTodo = contactsId => {
+  deleteCard = contactsId => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(
         contacts => contacts.id !== contactsId,
       ),
     }));
   };
-  filtr = e => {
+  filterValue = e => {
     this.setState({ filter: e.target.value });
   };
   render() {
-    const { contacts, filter } = this.state;
+    const { filter } = this.state;
     const visible = this.state.contacts.filter(contacts =>
       contacts.text.toLowerCase().includes(this.state.filter.toLowerCase()),
     );
@@ -56,24 +51,12 @@ class App extends Component {
     return (
       <div>
         <h1>Phonebook</h1>
-        <div>
-          <h2>Name</h2>
-          <Form onSubmit={this.fff} />
-        </div>
-        <div>
-          <h2>Contacts</h2>
-          <BBB value={filter} onChange={this.filtr} />
-          <Alert todos={visible} onDeleteTodo={this.deleteTodo} />
-        </div>
-      </div>
-      //       <div>
-      //   <h1>Phonebook</h1>
-      //   <ContactForm ... />
+        <ContactForm onSubmit={this.makeCard} />
 
-      //   <h2>Contacts</h2>
-      //   <Filter ... />
-      //   <ContactList ... />
-      // </div>
+        <h2>Contacts</h2>
+        <Filter value={filter} onChange={this.filterValue} />
+        <ContactList contacts={visible} onDeleteCard={this.deleteCard} />
+      </div>
     );
   }
 }
