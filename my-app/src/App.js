@@ -5,6 +5,8 @@ import ContactForm from './components/ContactForm';
 import Filter from './components/Filter';
 import ContactList from './components/ContactList';
 
+import styles from './index.module.css';
+
 class App extends Component {
   state = {
     contacts: [
@@ -49,11 +51,11 @@ class App extends Component {
     );
 
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <div className={styles.section}>
+        <h1 className={styles.title}>Phonebook</h1>
         <ContactForm onSubmit={this.makeCard} />
 
-        <h2>Contacts</h2>
+        <h2 className={styles.title}>Contacts</h2>
         <Filter value={filter} onChange={this.filterValue} />
         <ContactList contacts={visible} onDeleteCard={this.deleteCard} />
       </div>

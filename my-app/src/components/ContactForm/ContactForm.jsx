@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
+import styles from './ContactForm.module.css';
+
 class Form extends Component {
   loginId = uuidv4();
   telId = uuidv4();
@@ -25,8 +27,8 @@ class Form extends Component {
   render() {
     return (
       <div>
-        <h3>Name</h3>
-        <form onSubmit={this.formSubmit}>
+        <h3 className={styles.title}>Name</h3>
+        <form className={styles.form} onSubmit={this.formSubmit}>
           <input
             type="text"
             name="name"
@@ -36,8 +38,9 @@ class Form extends Component {
             title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
             required
             onChange={this.handleChange}
+            className={styles.input}
           />
-          <h3>Number</h3>
+          <h3 className={styles.title}>Number</h3>
           <input
             type="tel"
             name="number"
@@ -47,8 +50,12 @@ class Form extends Component {
             title="Номер телефона должен состоять из 11-12 цифр и может содержать цифры, пробелы, тире, пузатые скобки и может начинаться с +"
             required
             onChange={this.handleChange}
+            className={styles.input}
           />
-          <button type="submit">Add contact</button>
+          <br />
+          <button type="submit" className={styles.button}>
+            Add contact
+          </button>
         </form>
       </div>
     );
