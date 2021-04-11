@@ -23,7 +23,9 @@ class App extends Component {
       id: uuidv4(),
       number,
     };
-    const oldCard = this.state.contacts.find(newCard => name === newCard.text);
+    const oldCard = this.state.contacts.find(
+      newCard => name.toLowerCase() === newCard.text.toLowerCase(),
+    );
 
     if (oldCard) {
       alert(`${oldCard.text}  is already in contacts`);
